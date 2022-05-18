@@ -62,13 +62,12 @@ public class JAVA_ListScripts extends CustomJavaAction<java.util.List<IMendixObj
 		if (this.module != null && !"".equals(this.module.trim())) {
 			String _module = microflowName.substring(0, dot);
 			matches &= this.module.equals(_module);
-			logger.info("Microflow:" + microflowName + " : module=" + _module);
+			logger.debug("Microflow \"" + microflowName + "\" found. Module match = " + matches);
 		}
 
 		if (matches && this.microflowPrefix != null && !"".equals(this.microflowPrefix.trim())) {
-			String _name = microflowName.substring(dot + 1);
-			matches &= this.microflowPrefix.equals(_name);
-			logger.info("Microflow:" + microflowName + " : module=" + _name);
+			matches &= microflowName.startsWith(this.microflowPrefix, dot + 1);
+			logger.debug("Microflow \"" + microflowName + "\" found. Name match = " + matches);
 		}
 		
 		return matches;
