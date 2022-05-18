@@ -11,6 +11,8 @@ package migration.actions;
 
 import static com.mendix.core.Core.getMicroflowNames;
 import static java.util.stream.Collectors.toList;
+import com.mendix.core.Core;
+import com.mendix.logging.ILogNode;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import migration.proxies.ScriptId;
@@ -18,12 +20,14 @@ import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class JAVA_ListScripts extends CustomJavaAction<java.util.List<IMendixObject>>
 {
-	private java.lang.String Prefix;
+	private java.lang.String module;
+	private java.lang.String microflowPrefix;
 
-	public JAVA_ListScripts(IContext context, java.lang.String Prefix)
+	public JAVA_ListScripts(IContext context, java.lang.String module, java.lang.String microflowPrefix)
 	{
 		super(context);
-		this.Prefix = Prefix;
+		this.module = module;
+		this.microflowPrefix = microflowPrefix;
 	}
 
 	@java.lang.Override
@@ -31,7 +35,7 @@ public class JAVA_ListScripts extends CustomJavaAction<java.util.List<IMendixObj
 	{
 		// BEGIN USER CODE
 		return getMicroflowNames().stream()
-			.filter(m -> m.startsWith(Prefix))
+			.filter(m -> matches(m))
 			.sorted()
 			.map(m -> toScriptId(m))
 			.map(s -> s.getMendixObject())
@@ -50,6 +54,26 @@ public class JAVA_ListScripts extends CustomJavaAction<java.util.List<IMendixObj
 	}
 
 	// BEGIN EXTRA CODE
+	private ILogNode logger = Core.getLogger("Migration");
+	private boolean matches(String microflowName) {
+		int dot = microflowName.indexOf(".");
+		boolean matches = true;
+		
+		if (this.module != null && !"".equals(this.module.trim())) {
+			String _module = microflowName.substring(0, dot);
+			matches &= this.module.equals(_module);
+			logger.info("Microflow:" + microflowName + " : module=" + _module);
+		}
+
+		if (matches && this.microflowPrefix != null && !"".equals(this.microflowPrefix.trim())) {
+			String _name = microflowName.substring(dot + 1);
+			matches &= this.microflowPrefix.equals(_name);
+			logger.info("Microflow:" + microflowName + " : module=" + _name);
+		}
+		
+		return matches;
+	}
+	
 	private ScriptId toScriptId(String microflowName) {
 		ScriptId scriptId = new ScriptId(getContext());
 		scriptId.setName(microflowName);
