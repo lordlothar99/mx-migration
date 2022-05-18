@@ -25,11 +25,11 @@ If a migration microflow fails to execute, the migration process stop there (the
 
 ## Force the re-execution of a migration microflow
 
-If you want to re-execute a migration microflow, you'll have to remove its execution in the database, and restart the migration process.
+If you want to re-execute a migration microflow, you'll have to erase "Started" and "Finished" fields in the database, and restart the migration process.
 
 ## Example
 
-An example project is available in (github)[https://github.com/lordlothar99/mx-migration].
+An example project is available in [github](https://github.com/lordlothar99/mx-migration).
 
 ## Dependencies
 * Community-Commons
@@ -38,4 +38,4 @@ An example project is available in (github)[https://github.com/lordlothar99/mx-m
 Mendix 9
 
 ## Feedback, PR & bugs
-Please submit your bugs / PR (here)[https://github.com/lordlothar99/mx-migration], and contact me at "francois at kohomai.com"
+Please submit your bugs / PR [here](https://github.com/lordlothar99/mx-migration), and contact me at "francois at kohomai.com"
