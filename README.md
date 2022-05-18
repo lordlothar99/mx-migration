@@ -31,9 +31,6 @@ If you want to re-execute a migration microflow, you'll have to erase "Started" 
 
 An example project is available in [github](https://github.com/lordlothar99/mx-migration).
 
-## Dependencies
-* Community-Commons
-
 ## Version
 Mendix 9
 

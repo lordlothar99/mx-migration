@@ -12,7 +12,6 @@ package migration.actions;
 import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
-import communitycommons.Misc;
 
 /**
  * Executes the given microflow as if the $currentuser is the provided user (delegation). Use sudoContext to determine if 'apply entity access' should be used 
@@ -36,7 +35,6 @@ public class executeUnverifiedMicroflow extends CustomJavaAction<java.lang.Strin
 	{
 		// BEGIN USER CODE
 		Object res = Core.microflowCall(microflowName).execute(getContext());
-		//Object res = Misc.executeMicroflowAsUser(getContext(), microflowName, username, sudoContext);
 		return res == null ? null : res.toString();
 		// END USER CODE
 	}
