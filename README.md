@@ -27,6 +27,10 @@ If a migration microflow fails to execute, the migration process stop there (the
 
 If you want to re-execute a migration microflow, you'll have to remove its execution in the database, and restart the migration process.
 
+## Example
+
+An example project is available in (github)[https://github.com/lordlothar99/mx-migration].
+
 ## Dependencies
 * Community-Commons
 
